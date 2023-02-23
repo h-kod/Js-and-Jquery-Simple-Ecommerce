@@ -102,7 +102,7 @@ function cartCalculate() {
 function buyButtonClicked() {
 
   updatetotal();
-  window.location.pathname = 'cart.html'
+  window.location.href = './cart.html'
 }
 
 function removeCart(){

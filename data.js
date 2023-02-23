@@ -18,7 +18,7 @@ products = [
     "title": "BLACK HOODIE",
     "img": "./img/product3.jpg",
     "price": 200,
-    "discountPercent": 30,
+    "discountPercent": 0,
   },
   {
     "id": 3,

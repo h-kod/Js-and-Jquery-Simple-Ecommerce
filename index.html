@@ -58,15 +58,17 @@
 			<template x-for="item in prod">
 
 				<div class="product-box">
-					<a type="button" class="btn" data-bs-toggle="modal" x-data="{btnid: '#item' + item.id}"
+					<a type="button" class="btn p-0" data-bs-toggle="modal" x-data="{btnid: '#item' + item.id}"
 						:data-bs-target="btnid">
 						<img :src="item.img" alt="" class="product-img">
 						<h2 class="product-title" x-text="item.title"></h2>
 					</a>
-						<div x-show="item.discountPercent > 0">
-							<span class="discount" x-text="item.price * (item.discountPercent / 100) + item.price"></span><span
-								class="discount"> TL</span>
-						</div>
+						<span x-show="item.discountPercent > 0">
+							<!-- indirimliFiyat / (1 - item.discountPercent/100); -->
+							<span class="discount" x-data="{discountPrice: (item.price / (1 - item.discountPercent/100)).toFixed(2) + ' TL'}" x-text="discountPrice"></span>
+								<span class="badge  rounded-pill bg-danger" x-data="{discount: item.discountPercent + '%'}"
+								x-text="discount"></span>
+						</span>
 						<span class="price" x-data="{prc: item.price + ' TL'}"><span x-text="prc"></span></span>
 						<i class="bx bx-shopping-bag add-cart"></i>
 
@@ -80,8 +82,7 @@
 
 									<h2 class="product-title" x-text="item.title"></h2>
 									<div x-show="item.discountPercent > 0">
-										<span class="discount" x-text="item.price * (item.discountPercent / 100) + item.price"></span><span
-											class="discount"> TL</span>
+										<span class="discount" x-data="{discountPrice: (item.price / (1 - item.discountPercent/100)).toFixed(2) + ' TL'}" x-text="discountPrice"></span>
 									</div>
 
 									<button type="button" class="btn btn-primary btn-sm" x-show="item.discountPercent > 0">

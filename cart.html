@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Javascript Ecommerce - Inveon</title>
+
+	<link rel="stylesheet" href="style.css">
+	<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css'
+		integrity='sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=='
+		crossorigin='anonymous' />
+
+	<script src="data.js"></script>
+
+	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+</head>
+
+<body>
+	<header>
+		<!-- Nav -->
+		<div class="nav container">
+			<a href="/" class="logo">Inveon</a>
+			<div class="cart-region">
+				<i class="bx bx-md bx-shopping-bag" id="cart-icon"></i>
+				<span id="cart-count">0</span>
+			</div>
+
+			<div class="cart">
+				<h1 class="cart-title">Sepetim</h1>
+
+				<div class="cart-content">
+
+				</div>
+				<div class="total">
+					<div class="total-title">Toplam : </div>
+					<div class="total-price">0 TL</div>
+				</div>
+
+				<button type="button" class="btn-buy">Siparişi Tamamla</button>
+
+				<i class="bx bx-x" id="close-cart"></i>
+			</div>
+
+		</div>
+	</header>
+
+	<section class="shop container page-cart">
+		<h2 class="section-title">Ürünler</h2>
+
+		<table class="table table-striped" x-data="{ prod: jQuery.parseJSON(localStorage.getItem('cart')) }">
+			<tbody>
+				<tr>
+					<th></th>
+					<th>Ürün</th>
+					<th>Miktar</th>
+					<th>Fiyat</th>
+					<th>Toplam</th>
+					<th></th>
+				</tr>
+
+				<template x-for="item in prod">
+					<tr class="product">
+						<td><img class="" :src="item.img"></td>
+
+						<td id="title" class="" x-text="item.title"></td>
+
+						<td><input type="number" class="cart-quantity" x-model="item.qty" /></td>
+
+						<td class="cart-price" x-text="item.price"></td>
+
+						<td class="" x-data="{prc: item.qty * item.price + ' TL'}"><span class="total-price"
+								x-text="prc"></span></td>
+
+						<td><i class='bx bxs-trash-alt cart-remove-page' :data-id="item.id"></i></td>
+					</tr>
+				</template>
+
+			</tbody>
+		</table>
+
+		<div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
+			<div class="card-body p-4">
+
+				<div class="row">
+					<div class="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
+						<form>
+							<div class="d-flex flex-row pb-3">
+								<div class="d-flex align-items-center pe-2">
+									<input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1v"
+										value="" aria-label="..." checked />
+								</div>
+								<div class="rounded border w-100 p-3">
+									<p class="d-flex align-items-center mb-0">
+										<i class="fab fa-cc-mastercard fa-2x text-dark pe-2"></i>Kredi Kartı
+									</p>
+								</div>
+							</div>
+							<div class="d-flex flex-row pb-3">
+								<div class="d-flex align-items-center pe-2">
+									<input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel2v"
+										value="" aria-label="..." />
+								</div>
+								<div class="rounded border w-100 p-3">
+									<p class="d-flex align-items-center mb-0">
+										<i class="fab fa-cc-visa fa-2x fa-lg text-dark pe-2"></i>Debit Kart
+									</p>
+								</div>
+							</div>
+							<div class="d-flex flex-row">
+								<div class="d-flex align-items-center pe-2">
+									<input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel3v"
+										value="" aria-label="..." />
+								</div>
+								<div class="rounded border w-100 p-3">
+									<p class="d-flex align-items-center mb-0">
+										<i class="fab fa-cc-paypal fa-2x fa-lg text-dark pe-2"></i>PayPal
+									</p>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-6 col-lg-4 col-xl-6">
+						<div class="row">
+							<div class="col-12 col-xl-6">
+								<div class="form-outline mb-4 mb-xl-5">
+									<label class="form-label" for="typeName">Kart üzerindeki isim</label>
+									<input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+										placeholder="John Smith" />
+								</div>
+
+								<div class="form-outline mb-4 mb-xl-5">
+									<label class="form-label" for="typeExp">Son kullanma tarihi</label>
+									<input type="text" id="typeExp" class="form-control form-control-lg"
+										placeholder="AA/YY" size="7" id="exp" minlength="7" maxlength="7" />
+								</div>
+							</div>
+							<div class="col-12 col-xl-6">
+								<div class="form-outline mb-4 mb-xl-5">
+									<label class="form-label" for="typeText">Kart numarası</label>
+									<input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+										placeholder="1111 2222 3333 4444" minlength="19" maxlength="19" />
+								</div>
+
+								<div class="form-outline mb-4 mb-xl-5">
+									<label class="form-label" for="typeText2">Güvenlik kodu</label>
+									<input type="number" id="typeText2" class="form-control form-control-lg"
+										placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-xl-3" >
+
+						<!-- <div x-data="{ prod2: jQuery.parseJSON(localStorage.getItem('cart')) }">
+							<div x-for="items in prod2">
+								<span x-text="items.title"></span>
+							</div>
+						</div> -->
+            <!-- <div x-data="{ prod: jQuery.parseJSON(localStorage.getItem('cart')) }"> -->
+              <!-- <template x-for="item in prod">
+                <span x-text="item.title"></span>
+              </template> -->
+            <!-- </div> -->
+            
+						<div class="d-flex justify-content-between" style="font-weight: 500;">
+							<p class="mb-2">Ara Toplam</p>
+							<p class="mb-2 before-total">$23.49</p>
+						</div>
+
+						<div class="d-flex justify-content-between" style="font-weight: 500;">
+							<p class="mb-0">KDV</p>
+							<p class="mb-0 vat">$2.99</p>
+						</div>
+
+						<div class="d-flex justify-content-between" style="font-weight: 500;">
+							<p class="mb-0 cargoTitle">Kargo</p>
+							<p class="mb-0 cargoPrice">$2.99</p>
+						</div>
+
+						<hr class="my-4">
+
+						<div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
+							<p class="mb-2">Genel Toplam (KDV dahil)</p>
+							<p class="mb-2 lastTotal">$26.48</p>
+						</div>
+
+						<button type="button" class="btn btn-primary btn-block btn-lg">
+							<div class="d-flex justify-content-between">
+								<span>Ödeme yap</span>
+							</div>
+						</button>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js'
+		integrity='sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=='
+		crossorigin='anonymous'></script>
+	<script src="main.js"></script>
+
+</body>
+
+</html>

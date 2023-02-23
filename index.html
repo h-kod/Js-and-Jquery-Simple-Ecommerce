@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Javascript Ecommerce - Inveon</title>
+
+	<link rel="stylesheet" href="style.css">
+	<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css'
+		integrity='sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=='
+		crossorigin='anonymous' />
+	<script src="data.js"></script>
+
+	<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+</head>
+
+<body>
+	<header>
+		<!-- Nav -->
+		<div class="nav container">
+			<a href="/" class="logo">Inveon</a>
+			<div class="cart-region">
+				<i class="bx bx-md bx-shopping-bag" id="cart-icon"></i>
+				<span id="cart-count">0</span>
+			</div>
+
+			<div class="cart">
+				<h1 class="cart-title">Sepetim</h1>
+
+				<div class="cart-content">
+
+
+
+				</div>
+				<div class="total">
+					<div class="total-title">Toplam : </div>
+					<div class="total-price">0 TL</div>
+				</div>
+
+				<button type="button" class="btn-buy">Siparişi Tamamla</button>
+
+				<i class="bx bx-x" id="close-cart"></i>
+			</div>
+
+		</div>
+	</header>
+
+	<section class="shop container">
+		<h2 class="section-title">Ürünler</h2>
+		<h5 class="text-center">300 TL ve üzeri Kargo Bedava</h5>
+
+		<div class="shop-content" x-data="{ prod: products }">
+			<template x-for="item in prod">
+
+				<div class="product-box">
+					<a type="button" class="btn" data-bs-toggle="modal" x-data="{btnid: '#item' + item.id}"
+						:data-bs-target="btnid">
+						<img :src="item.img" alt="" class="product-img">
+						<h2 class="product-title" x-text="item.title"></h2>
+					</a>
+						<div x-show="item.discountPercent > 0">
+							<span class="discount" x-text="item.price * (item.discountPercent / 100) + item.price"></span><span
+								class="discount"> TL</span>
+						</div>
+						<span class="price" x-data="{prc: item.price + ' TL'}"><span x-text="prc"></span></span>
+						<i class="bx bx-shopping-bag add-cart"></i>
+
+					<div class="modal fade" x-data="{btnid: 'item' + item.id}" :id="btnid" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+								<div class="modal-body">
+									<img :src="item.img" alt="" class="product-img">
+
+									<h2 class="product-title" x-text="item.title"></h2>
+									<div x-show="item.discountPercent > 0">
+										<span class="discount" x-text="item.price * (item.discountPercent / 100) + item.price"></span><span
+											class="discount"> TL</span>
+									</div>
+
+									<button type="button" class="btn btn-primary btn-sm" x-show="item.discountPercent > 0">
+										İndirim <span class="badge bg-warning text-dark" x-data="{discount: item.discountPercent + '%'}"
+											x-text="discount"></span>
+									</button>
+
+									<span class="price" x-data="{prc: item.price + ' TL'}"><span x-text="prc"></span></span>
+									<button type="button" class="btn btn-success add-cart"><i class="bx bx-shopping-bag"></i> Sepete
+										Ekle</button>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</template>
+		</div>
+
+	</section>
+
+
+
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js'
+		integrity='sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=='
+		crossorigin='anonymous'></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<script src="main.js"></script>
+
+</body>
+
+</html>
